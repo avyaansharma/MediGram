@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthAI - Report Analysis</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/report-analysis.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Supabase JS library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        /* Ensure proper scrolling at page level */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: auto;
+        }
+        
+        /* Dashboard container should take full height */
+        .dashboard-container {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* Main content should be scrollable */
+        .main-content {
+            flex: 1;
+            height: 100vh;
+            overflow-y: auto;
+            margin-left: 260px;
+        }
+        
+        /* Analysis results should be scrollable independently */
+        #analysis-content {
+            overflow-y: auto;
+            max-height: 60vh;
+            padding-right: 10px;
+        }
+        
+        /* Add scrollbar styling for analysis content */
+        #analysis-content::-webkit-scrollbar {
+            width: 8px;
+            display: block;
+        }
+        
+        #analysis-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        
+        #analysis-content::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+        }
+        
+        #analysis-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Analysis results should fit properly */
+        #analysis-results {
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <i class="fas fa-heartbeat"></i>
+                <h2>HealthAI</h2>
+            </div>
+            <div class="menu-divider"></div>
+            <nav class="nav-menu">
+                <a href="dashboard.html" id="ai-assistant">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Assistant</span>
+                </a>
+                <a href="report-analysis.html" id="report-analysis" class="active">
+                    <i class="fas fa-file-medical-alt"></i>
+                    <span>Report Analysis</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="top-bar">
+                <div class="model-selector">
+                    <i class="fas fa-robot"></i>
+                    <span class="model-name">HealthAI Report Analysis</span>
+                    <span class="dashboard-type">(Patient Dashboard)</span>
+                </div>
+                <div class="user-menu">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                    <div class="user-profile">
+                        <img src="https://via.placeholder.com/32" alt="User avatar">
+                        <span id="user-name">Loading...</span>
+                        <i class="fas fa-chevron-down"></i>
+                        <div class="dropdown-menu">
+                            <a href="#profile">
+                                <i class="fas fa-user"></i>
+                                <span>My Profile</span>
+                            </a>
+                            <a href="#settings">
+                                <i class="fas fa-cog"></i>
+                                <span>Settings</span>
+                            </a>
+                            <a href="#help">
+                                <i class="fas fa-question-circle"></i>
+                                <span>Help Center</span>
+                            </a>
+                            <a href="#" id="logout-button">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Sign Out</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Report Analysis Content -->
+            <div class="report-analysis-content">
+                <div class="report-analysis-header">
+                    <h1>Report Analysis</h1>
+                    <p class="subtitle">Upload your medical reports and our AI will analyze them for you.</p>
+                </div>
+                
+                <div class="report-upload-container">
+                    <div class="upload-area" id="upload-area">
+                        <div class="upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <h3>Upload Medical Reports</h3>
+                        <p>Drag and drop your PDF report here</p>
+                        <p class="or-divider">or</p>
+                        <button class="browse-button">Browse Files</button>
+                        <input type="file" id="file-input" accept=".pdf" style="display: none;">
+                    </div>
+                    
+                    <div class="upload-tips">
+                        <p><i class="fas fa-info-circle"></i> Uploading a new file will replace the previous one.</p>
+                        <p><i class="fas fa-lock"></i> Your files are securely processed and encrypted.</p>
+                    </div>
+                </div>
+                
+                <div class="uploaded-reports-container">
+                    <h2>Your Uploaded Report</h2>
+                    <div class="reports-list" id="reports-list">
+                        <!-- Report will be dynamically added here -->
+                        <div class="empty-reports-message">
+                            <i class="fas fa-file-medical-alt"></i>
+                            <p>No report uploaded yet. Upload your medical report to get started.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- This is always included in the HTML structure -->
+                <div class="analysis-results-container" id="analysis-results" style="display: none; margin-top: 30px; margin-bottom: 30px; background-color: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);">
+                    <h2 style="color: #fff; margin-bottom: 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 10px;">Analysis Results</h2>
+                    <div id="analysis-content" style="color: #e2e8f0; line-height: 1.6; overflow-y: auto; max-height: 600px;">
+                        <!-- Analysis content will be added here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load auth-related scripts -->
+    <script src="js/supabase.js"></script>
+    <script src="js/util.js"></script>
+    <!-- Load navigation script -->
+    <script src="js/navigation.js"></script>
+    <!-- Load report analysis script -->
+    <script src="js/dashboard_pages/report_analysis.js"></script>
+    
+    <script>
+        // Check if user is logged in
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                // Check if this is a redirect from OAuth login
+                if (window.utils.handleOAuthRedirect()) {
+                    // If it's an OAuth redirect, the handler will take care of routing
+                    return;
+                }
+                
+                const user = await window.utils.requireAuth();
+                if (user) {
+                    const userType = window.utils.getUserType();
+                    
+                    // Ensure we're on the right dashboard type
+                    if (userType === 'doctor') {
+                        window.location.href = 'doctor-dashboard.html';
+                        return;
+                    }
+                    
+                    // Update user name in profile dropdown
+                    const userNameEl = document.getElementById('user-name');
+                    if (userNameEl) {
+                        userNameEl.textContent = user.user_metadata?.full_name || user.email;
+                    }
+                }
+                
+                // Set up logout button
+                const logoutButton = document.getElementById('logout-button');
+                if (logoutButton) {
+                    logoutButton.addEventListener('click', async (e) => {
+                        e.preventDefault();
+                        await window.utils.logout();
+                    });
+                }
+                
+                // Setup dropdown toggle
+                const userProfile = document.querySelector('.user-profile');
+                if (userProfile) {
+                    userProfile.addEventListener('click', (e) => {
+                        userProfile.classList.toggle('active');
+                    });
+                    
+                    // Close dropdown when clicking outside
+                    document.addEventListener('click', (e) => {
+                        if (!userProfile.contains(e.target)) {
+                            userProfile.classList.remove('active');
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error('Error initializing dashboard:', error);
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
+</body>
+</html> 

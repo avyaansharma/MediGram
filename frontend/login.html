@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthAI - Login</title>
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Supabase JS library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="logo">
+                <i class="fas fa-heartbeat"></i>
+                <h1>HealthAI</h1>
+            </div>
+            
+            <div class="user-type-selector">
+                <button class="user-type active" data-type="patient">
+                    <i class="fas fa-user"></i>
+                    <span>Patient</span>
+                </button>
+                <button class="user-type" data-type="doctor">
+                    <i class="fas fa-user-md"></i>
+                    <span>Doctor</span>
+                </button>
+            </div>
+
+            <form class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" placeholder="Enter your email" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" placeholder="Enter your password" required>
+                        <button type="button" class="toggle-password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="error-message" class="error-message" style="display: none;"></div>
+
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" id="remember">
+                        <span>Remember me</span>
+                    </label>
+                    <a href="#" id="forgot-password" class="forgot-password">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="login-button">
+                    <span>Login</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <div class="divider">
+                <span>or</span>
+            </div>
+
+            <div class="social-login">
+                <button class="social-button google" id="google-login">
+                    <i class="fab fa-google"></i>
+                    <span>Continue with Google</span>
+                </button>
+                <button class="social-button microsoft" id="microsoft-login">
+                    <i class="fab fa-microsoft"></i>
+                    <span>Continue with Microsoft</span>
+                </button>
+            </div>
+
+            <div class="signup-link">
+                Don't have an account? <a href="#" id="signup-link">Sign up</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Supabase initialization first -->
+    <script src="js/supabase.js"></script>
+    <!-- Load login.js after Supabase is initialized -->
+    <script src="js/login.js"></script>
+</body>
+</html> 
