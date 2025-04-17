@@ -1,0 +1,672 @@
+/* Prescription Reader Styling */
+
+/* Hide scrollbars but keep functionality */
+.main-content {
+    /* Hide scrollbar for IE, Edge, and Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* Chrome, Safari and Opera */
+.main-content::-webkit-scrollbar {
+    display: none;
+}
+
+html {
+    /* Hide scrollbar for IE, Edge, and Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* Chrome, Safari and Opera */
+html::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    /* Hide scrollbar for IE, Edge, and Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background-color: var(--background-light);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    overflow-y: auto;
+    transition: transform 0.3s ease;
+    border-right: 1px solid var(--border-color);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    padding: 20px 25px;
+    margin-bottom: 10px;
+}
+
+.logo i {
+    font-size: 28px;
+    color: var(--primary-color);
+    margin-right: 10px;
+}
+
+.logo h1, .logo h2 {
+    color: var(--text-primary);
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.menu-divider {
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 0 16px 16px;
+}
+
+.nav-menu {
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px;
+}
+
+.nav-menu a {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: 8px;
+    margin-bottom: 6px;
+    transition: all 0.2s ease;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    background-color: var(--primary-color);
+    color: var(--text-primary);
+}
+
+.nav-menu a i {
+    font-size: 18px;
+    margin-right: 12px;
+    width: 20px;
+    text-align: center;
+}
+
+/* Header Styles */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 32px;
+    background-color: rgba(18, 20, 25, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+header .logo i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+header .logo span {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+header .logo .subtitle {
+    font-size: 14px;
+    font-weight: normal;
+    color: #a0aec0;
+    margin-left: 8px;
+}
+
+header .user-profile {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+}
+
+header .notifications {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+header .notifications i {
+    font-size: 20px;
+    color: #a0aec0;
+}
+
+header .badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #e53e3e;
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header .user-profile img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #805ad5;
+}
+
+header .user-profile span {
+    font-size: 16px;
+    color: #ffffff;
+}
+
+header .user-profile i {
+    font-size: 12px;
+    color: #a0aec0;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+header .user-profile:hover i {
+    color: #ffffff;
+}
+
+header .profile-dropdown {
+    position: absolute;
+    top: 45px;
+    right: 0;
+    background-color: #1a202c;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    width: 180px;
+    display: none;
+    z-index: 1000;
+}
+
+header .user-profile:hover .profile-dropdown {
+    display: block;
+}
+
+header .profile-dropdown a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    color: #a0aec0;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+header .profile-dropdown a:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+}
+
+header .profile-dropdown a i {
+    color: inherit;
+    font-size: 16px;
+}
+
+/* Main Container */
+.prescription-reader-content {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 100%;
+    padding: 24px;
+    overflow-y: visible;
+    background-color: #0f1116;
+    color: #ffffff;
+}
+
+/* Header */
+.prescription-reader-header {
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.prescription-reader-header h1 {
+    font-size: 28px;
+    margin-bottom: 8px;
+    color: #ffffff;
+}
+
+.prescription-reader-header .subtitle {
+    font-size: 16px;
+    color: #a0aec0;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Upload Container */
+.prescription-upload-container {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto 32px;
+}
+
+.upload-area {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 2px dashed #4a5568;
+    border-radius: 12px;
+    padding: 40px 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.upload-area.drag-over {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: #805ad5;
+}
+
+.upload-icon {
+    font-size: 48px;
+    color: #805ad5;
+    margin-bottom: 16px;
+}
+
+.upload-area h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+    color: #ffffff;
+}
+
+.upload-area p {
+    color: #a0aec0;
+    margin-bottom: 16px;
+}
+
+.or-divider {
+    position: relative;
+    font-size: 14px;
+    margin: 16px 0;
+    color: #718096;
+}
+
+.or-divider::before,
+.or-divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 60px;
+    height: 1px;
+    background-color: #4a5568;
+}
+
+.or-divider::before {
+    right: calc(50% + 15px);
+}
+
+.or-divider::after {
+    left: calc(50% + 15px);
+}
+
+.browse-button {
+    background-color: #805ad5;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.browse-button:hover {
+    background-color: #6b46c1;
+}
+
+.upload-tips {
+    margin-top: 16px;
+    color: #a0aec0;
+    font-size: 14px;
+}
+
+.upload-tips p {
+    margin: 8px 0;
+}
+
+.upload-tips i {
+    margin-right: 8px;
+    color: #805ad5;
+}
+
+/* Uploaded Prescriptions */
+.uploaded-prescriptions-container {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.uploaded-prescriptions-container h2 {
+    font-size: 20px;
+    margin-bottom: 16px;
+    color: #ffffff;
+}
+
+.prescriptions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.empty-prescriptions-message {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    color: #a0aec0;
+}
+
+.empty-prescriptions-message i {
+    font-size: 48px;
+    color: #4a5568;
+    margin-bottom: 16px;
+    display: block;
+}
+
+/* Prescription Item */
+.prescription-item {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 16px;
+    transition: background-color 0.3s;
+}
+
+.prescription-item:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.prescription-icon {
+    font-size: 24px;
+    color: #4fd1c5;
+    margin-right: 16px;
+}
+
+.prescription-details {
+    flex: 1;
+}
+
+.prescription-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #ffffff;
+}
+
+.prescription-size {
+    font-size: 14px;
+    color: #a0aec0;
+    margin-bottom: 4px;
+}
+
+.prescription-status {
+    font-size: 14px;
+}
+
+.status-uploading {
+    color: #3182ce;
+}
+
+.status-processing {
+    color: #ecc94b;
+}
+
+.status-ready {
+    color: #48bb78;
+}
+
+.status-error {
+    color: #e53e3e;
+}
+
+.prescription-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.prescription-actions button {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 4px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #a0aec0;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.prescription-actions button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+.prescription-actions button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.view-prescription-btn:not(:disabled):hover {
+    color: #4299e1;
+}
+
+.delete-prescription-btn:hover {
+    color: #e53e3e;
+}
+
+/* Analysis Results */
+.analysis-results-container {
+    max-width: 800px;
+    width: 100%;
+    margin: 32px auto 0;
+    background-color: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    overflow: visible;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+#analysis-results {
+    max-width: 800px;
+    width: 100%;
+    margin: 32px auto 0;
+    background-color: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    overflow: visible;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.analysis-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.analysis-header h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #ffffff;
+}
+
+.close-analysis-btn {
+    background: none;
+    border: none;
+    color: #a0aec0;
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-analysis-btn:hover {
+    color: #ffffff;
+}
+
+#analysis-content {
+    padding: 24px;
+    max-height: none;
+    overflow-y: visible;
+}
+
+.analysis-prescription-header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.analysis-prescription-header h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    color: #ffffff;
+}
+
+.analysis-timestamp {
+    font-size: 14px;
+    color: #a0aec0;
+    margin: 0;
+}
+
+/* Error Toast */
+.upload-error-toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background-color: #e53e3e;
+    color: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    animation: slideIn 0.3s ease forwards;
+}
+
+.upload-error-toast.hiding {
+    animation: slideOut 0.3s ease forwards;
+}
+
+.upload-error-toast i {
+    margin-right: 8px;
+}
+
+@keyframes slideIn {
+    from { 
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to { 
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from { 
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to { 
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .prescription-upload-container,
+    .uploaded-prescriptions-container,
+    .analysis-results-container {
+        max-width: 100%;
+    }
+    
+    .upload-area {
+        padding: 24px 16px;
+    }
+    
+    .or-divider::before,
+    .or-divider::after {
+        width: 40px;
+    }
+    
+    .prescription-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .prescription-icon {
+        margin-right: 0;
+        margin-bottom: 12px;
+    }
+    
+    .prescription-details {
+        width: 100%;
+        margin-bottom: 12px;
+    }
+    
+    .prescription-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}
+
+/* Header logo styling */
+.header-logo {
+    height: 24px;
+    width: auto;
+    margin-right: 8px;
+}
+
+.model-selector {
+    display: flex;
+    align-items: center;
+}
+
+/* Top bar styling */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background-color: var(--background-light);
+    border-bottom: 1px solid var(--border-color);
+} 
