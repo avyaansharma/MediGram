@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthAI - Prescription Reader</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/prescription-reader.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Supabase JS library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/navigation.js" defer></script>
+    <script src="js/dashboard_pages/prescription_reader.js" defer></script>
+</head>
+<body class="dark-theme">
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="logo">
+                <i class="fas fa-heartbeat"></i>
+                <h1>HealthAI</h1>
+            </div>
+            <div class="menu-divider"></div>
+            <nav class="nav-menu">
+                <a href="dashboard.html" id="ai-assistant">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Assistant</span>
+                </a>
+                <a href="report-analysis.html" id="report-analysis">
+                    <i class="fas fa-file-medical-alt"></i>
+                    <span>Report Analysis</span>
+                </a>
+                <a href="prescription-reader.html" id="prescription-reader">
+                    <i class="fas fa-prescription-bottle-alt"></i>
+                    <span>Prescription Reader</span>
+                </a>
+            </nav>
+        </div>
+        
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="top-bar">
+                <div class="model-selector">
+                    <i class="fas fa-robot"></i>
+                    <span class="model-name">HealthAI Prescription Reader</span>
+                    <span class="dashboard-type">(Patient Dashboard)</span>
+                </div>
+                <div class="user-menu">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                    <div class="user-profile">
+                        <img src="https://via.placeholder.com/32" alt="User">
+                        <span id="user-name">Amlan1</span>
+                        <i class="fas fa-chevron-down"></i>
+                        <div class="dropdown-menu">
+                            <a href="#" id="profile-button">
+                                <i class="fas fa-user"></i>
+                                <span>Profile</span>
+                            </a>
+                            <a href="#" id="settings-button">
+                                <i class="fas fa-cog"></i>
+                                <span>Settings</span>
+                            </a>
+                            <a href="#" id="logout-button">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Prescription Reader Content -->
+            <div class="prescription-reader-content">
+                <div class="prescription-reader-header">
+                    <h1>Prescription Reader</h1>
+                    <p class="subtitle">Upload your prescription images and our AI will analyze them for you.</p>
+                </div>
+                
+                <div class="prescription-upload-container">
+                    <div class="upload-area" id="upload-area">
+                        <div class="upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <h3>Upload Prescription</h3>
+                        <p>Drag and drop your image (JPG, PNG) here</p>
+                        <p class="or-divider">or</p>
+                        <button class="browse-button">Browse Files</button>
+                        <input type="file" id="file-input" accept=".jpg,.jpeg,.png" style="display: none;">
+                    </div>
+                    
+                    <div class="upload-tips">
+                        <p><i class="fas fa-info-circle"></i> Uploading a new file will replace the previous one.</p>
+                        <p><i class="fas fa-lock"></i> Your files are securely processed and encrypted.</p>
+                    </div>
+                </div>
+                
+                <div class="uploaded-prescriptions-container">
+                    <h2>Your Uploaded Prescription</h2>
+                    <div class="prescriptions-list" id="prescriptions-list">
+                        <!-- Prescription will be dynamically added here -->
+                        <div class="empty-prescriptions-message">
+                            <i class="fas fa-prescription-bottle-alt"></i>
+                            <p>No prescription uploaded yet. Upload your prescription image to get started.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- This is always included in the HTML structure -->
+                <div class="analysis-results-container" id="analysis-results" style="display: none; margin-top: 30px; margin-bottom: 30px; background-color: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);">
+                    <h2 style="color: #fff; margin-bottom: 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 10px;">Prescription Analysis</h2>
+                    <div id="analysis-content" style="color: #e2e8f0; line-height: 1.6; overflow-y: auto; max-height: 600px;">
+                        <!-- Analysis content will be added here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Load auth-related scripts -->
+    <script src="js/supabase.js"></script>
+    <script src="js/util.js"></script>
+</body>
+</html> 
