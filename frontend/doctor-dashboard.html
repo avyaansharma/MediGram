@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthAI - Doctor Dashboard</title>
+    <link rel="stylesheet" href="css/doctor-dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Supabase JS library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <i class="fas fa-heartbeat"></i>
+                <h2>HealthAI</h2>
+            </div>
+            <div class="menu-divider"></div>
+            <nav class="nav-menu">
+                <a href="#" class="active">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Assistant</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="top-bar">
+                <div class="model-selector">
+                    <i class="fas fa-robot"></i>
+                    <span class="model-name">HealthAI Assistant</span>
+                    <i class="fas fa-chevron-down"></i>
+                    <div class="model-dropdown">
+                        <div class="model-dropdown-header">Disease Models:</div>
+                        <a href="#" class="model-option" data-model="breast-cancer">
+                            <i class="fas fa-venus"></i>
+                            <span>Breast Cancer</span>
+                            <i class="fas fa-check model-check"></i>
+                        </a>
+                        <a href="#" class="model-option" data-model="heart-disease">
+                            <i class="fas fa-heartbeat"></i>
+                            <span>Heart Disease</span>
+                            <i class="fas fa-check model-check"></i>
+                        </a>
+                        <a href="#" class="model-option" data-model="kidney-disease">
+                            <i class="fas fa-procedures"></i>
+                            <span>Kidney Disease</span>
+                            <i class="fas fa-check model-check"></i>
+                        </a>
+                        <a href="#" class="model-option" data-model="liver-disease">
+                            <i class="fas fa-pills"></i>
+                            <span>Liver Disease</span>
+                            <i class="fas fa-check model-check"></i>
+                        </a>
+                        <a href="#" class="model-option" data-model="diabetis">
+                            <i class="fas fa-pills"></i>
+                            <span>Diabetes</span>
+                            <i class="fas fa-check model-check"></i>
+                        </a>
+                        <a href="#" class="model-option" data-model="hepatitis-C">
+                            <i class="fas fa-pills"></i>
+                            <span>Hepatitis C</span>
+                            <i class="fas fa-check model-check"></i>
+                        </a>
+                        <a href="#" class="model-option" data-model="brain-tumor">
+                            <i class="fas fa-brain"></i>
+                            <span>Brain Tumor</span>
+                            <i class="fas fa-check model-check"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="user-menu">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                    <div class="user-profile">
+                        <img src="https://via.placeholder.com/32" alt="User avatar">
+                        <span id="user-name">Loading...</span>
+                        <i class="fas fa-chevron-down"></i>
+                        <div class="dropdown-menu">
+                            <a href="#profile">
+                                <i class="fas fa-user"></i>
+                                <span>My Profile</span>
+                            </a>
+                            <a href="#settings">
+                                <i class="fas fa-cog"></i>
+                                <span>Settings</span>
+                            </a>
+                            <a href="#help">
+                                <i class="fas fa-question-circle"></i>
+                                <span>Help Center</span>
+                            </a>
+                            <a href="#" id="logout-button">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Sign Out</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Interface -->
+            <div class="chat-interface">
+                <div class="welcome-message">
+                    <h1>How can I help you today?</h1>
+                    <p class="subtitle">I'm your AI healthcare assistant. I'm here to help you in your diagnosis.</p>
+                    <div class="suggestion-chips">
+                        <button>Schedule an appointment</button>
+                        <button>Check my medications</button>
+                        <button>View my health metrics</button>
+                        <button>Get mental health support</button>
+                    </div>
+                </div>
+
+                <div class="chat-messages">
+                    <!-- Messages will be dynamically added here -->
+                </div>
+
+                <div class="chat-input-container">
+                    <div class="input-wrapper">
+                        <input type="text" placeholder="Type your message here...">
+                        <div class="input-actions">
+                            <button class="feature-button">
+                                <i class="fas fa-microphone"></i>
+                            </button>
+                            <button class="feature-button">
+                                <i class="fas fa-image"></i>
+                            </button>
+                            <button class="feature-button">
+                                <i class="fas fa-file-medical"></i>
+                            </button>
+                            <button class="send-button">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="input-footer">
+                        HealthAI may produce inaccurate information about people, places, or facts.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Side Panel -->
+        <div class="side-panel">
+            <div class="panel-header">
+                <h3>Health Metrics</h3>
+                <button class="close-panel">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="panel-content">
+                <div class="metric-card">
+                    <h4>Heart Rate</h4>
+                    <p class="metric-value">72 bpm</p>
+                    <p class="metric-trend">Normal</p>
+                </div>
+                <div class="metric-card">
+                    <h4>Weight</h4>
+                    <p class="metric-value">70 kg</p>
+                    <p class="metric-trend">Stable</p>
+                </div>
+                <div class="metric-card">
+                    <h4>Temperature</h4>
+                    <p class="metric-value">98.6°F</p>
+                    <p class="metric-trend">Normal</p>
+                </div>
+                <div class="metric-card">
+                    <h4>Blood Pressure</h4>
+                    <p class="metric-value">120/80 mmHg</p>
+                    <p class="metric-trend">Normal</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load auth-related scripts -->
+    <script src="js/supabase.js"></script>
+    <script src="js/util.js"></script>
+    <script>
+        // Check if user is logged in
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                // Check if this is a redirect from OAuth login
+                if (window.utils.handleOAuthRedirect()) {
+                    // If it's an OAuth redirect, the handler will take care of routing
+                    return;
+                }
+                
+                const user = await window.utils.requireAuth();
+                if (user) {
+                    const userType = window.utils.getUserType();
+                    
+                    // Ensure we're on the right dashboard type
+                    if (userType !== 'doctor') {
+                        window.location.href = 'dashboard.html';
+                        return;
+                    }
+                    
+                    // Update welcome message in chat interface
+                    const welcomeMessageEl = document.querySelector('.welcome-message h1');
+                    if (welcomeMessageEl) {
+                        welcomeMessageEl.textContent = `How can I help you today, ${user.user_metadata?.full_name || user.email}?`;
+                    }
+                    
+                    // Update user name in profile dropdown
+                    const userNameEl = document.getElementById('user-name');
+                    if (userNameEl) {
+                        userNameEl.textContent = user.user_metadata?.full_name || user.email;
+                    }
+                }
+                
+                // Set up logout button
+                const logoutButton = document.getElementById('logout-button');
+                if (logoutButton) {
+                    logoutButton.addEventListener('click', async (e) => {
+                        e.preventDefault();
+                        await window.utils.logout();
+                    });
+                }
+                
+                // Setup dropdown toggle
+                const userProfile = document.querySelector('.user-profile');
+                if (userProfile) {
+                    userProfile.addEventListener('click', (e) => {
+                        userProfile.classList.toggle('active');
+                    });
+                    
+                    // Close dropdown when clicking outside
+                    document.addEventListener('click', (e) => {
+                        if (!userProfile.contains(e.target)) {
+                            userProfile.classList.remove('active');
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error('Error initializing dashboard:', error);
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
+    <!-- Load main dashboard script -->
+    <script src="js/doctor-dashboard.js"></script>
+</body>
+</html> 

@@ -1,0 +1,1078 @@
+:root {
+    --primary-color: #8e24aa;
+    --secondary-color: #ab47bc;
+    --background-dark: #0f1419;
+    --background-light: #1a1c1e;
+    --card-background: #1e2124;
+    --text-primary: #ffffff;
+    --text-secondary: #a1a1aa;
+    --success-color: #48bb78;
+    --warning-color: #ed8936;
+    --danger-color: #e53e3e;
+    --border-radius: 0.75rem;
+    --border-color: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--background-dark);
+    color: var(--text-primary);
+    min-height: 100vh;
+}
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 260px;
+    background-color: var(--background-light);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--border-color);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.logo i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.logo h2 {
+    color: var(--text-primary);
+    font-size: 1.25rem;
+}
+
+.menu-divider {
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 1rem 0;
+}
+
+.nav-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-grow: 1;
+}
+
+.nav-menu a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    background-color: var(--primary-color);
+    color: var(--text-primary);
+}
+
+.nav-menu a i {
+    font-size: 1.25rem;
+}
+
+/* Main Content Styles */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.model-selector {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    background-color: var(--card-background);
+    position: relative;
+}
+
+.model-selector .model-name {
+    font-weight: 500;
+}
+
+.model-selector .dashboard-type {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-left: 0.25rem;
+}
+
+.model-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 220px;
+    margin-top: 0.5rem;
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    overflow: hidden;
+    display: none;
+}
+
+/* Remove hover behavior since we're using JavaScript */
+/*.model-selector:hover .model-dropdown,
+.model-dropdown:hover {
+    display: block;
+}*/
+
+.model-dropdown-header {
+    padding: 0.75rem 1rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
+    font-weight: 500;
+}
+
+.model-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.model-option:hover {
+    background-color: var(--primary-color);
+}
+
+.model-option i:not(.model-check) {
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+}
+
+.model-option span {
+    flex-grow: 1;
+}
+
+.model-check {
+    display: none !important;
+    color: var(--success-color);
+    margin-left: auto;
+    font-size: 0.9rem;
+}
+
+.model-option.active {
+    background-color: rgba(142, 36, 170, 0.3);
+}
+
+.model-option.active .model-check {
+    display: inline-block !important;
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.notifications {
+    position: relative;
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.notifications:hover {
+    background-color: var(--card-background);
+}
+
+.notifications i {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+}
+
+.badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 0.75rem;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--background-dark);
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.user-profile:hover {
+    background-color: var(--card-background);
+}
+
+.user-profile img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-color);
+}
+
+.user-profile span {
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.user-profile i {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin-left: 0.25rem;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+    width: 200px;
+    display: none;
+    z-index: 100;
+}
+
+.user-profile.active .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    transition: background-color 0.2s;
+}
+
+.dropdown-menu a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-menu i {
+    font-size: 1rem;
+    width: 20px;
+    text-align: center;
+}
+
+/* Chat Interface Styles */
+.chat-interface {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    gap: 2rem;
+    overflow-y: auto;
+}
+
+.welcome-message {
+    text-align: center;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease-out;
+    height: auto;
+    opacity: 1;
+    position: relative;
+}
+
+/* Collapsed welcome message */
+.welcome-message.collapsed {
+    margin-bottom: 0.5rem;
+    height: 50px;
+    overflow: hidden;
+    cursor: pointer;
+    opacity: 0.8;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+    position: relative;
+    transition: all 0.3s ease-out;
+}
+
+.welcome-message.collapsed::after {
+    content: '↓';
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.welcome-message:not(.collapsed)::after {
+    content: '↑';
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    opacity: 0.5;
+    display: none; /* Only show when there are messages */
+}
+
+.welcome-message:not(.collapsed).can-collapse::after {
+    display: block;
+}
+
+.welcome-message.collapsed h1 {
+    font-size: 1.2rem;
+    margin-bottom: 0;
+}
+
+.welcome-message.collapsed .subtitle,
+.welcome-message.collapsed .suggestion-chips {
+    display: none;
+}
+
+/* Completely hidden welcome message */
+.welcome-message.hidden {
+    height: 0;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    border: none;
+    pointer-events: none;
+}
+
+.welcome-message h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    transition: font-size 0.3s ease;
+}
+
+.welcome-message .subtitle {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.suggestion-chips {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.suggestion-chips button {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.suggestion-chips button:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.chat-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-bottom: 2rem;
+    transition: max-height 0.5s ease;
+    max-height: calc(100% - 220px);
+}
+
+/* Expanded chat area when welcome message is collapsed or hidden */
+.chat-messages.expanded {
+    max-height: calc(100% - 70px);
+    transition: max-height 0.3s ease-out;
+}
+
+.chat-messages.fully-expanded {
+    max-height: 100%;
+    transition: max-height 0.3s ease-out;
+}
+
+.message {
+    margin-bottom: 1.5rem;
+    animation: fadeIn 0.3s ease;
+    display: flex;
+    width: 100%;
+}
+
+.message-content {
+    display: flex;
+    gap: 1rem;
+    max-width: 90%;
+}
+
+/* User message styling */
+.user-message {
+    justify-content: flex-start;
+}
+
+.user-message .text-content {
+    background-color: rgba(142, 36, 170, 0.05);
+    border-color: rgba(142, 36, 170, 0.2);
+}
+
+/* Bot message styling */
+.bot-message {
+    justify-content: flex-end;
+}
+
+.bot-message .message-content {
+    flex-direction: row-reverse;
+    width: 100%;
+}
+
+.bot-icon {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-left: 0.5rem;
+}
+
+/* Text content and message containers */
+.text-content {
+    background-color: var(--card-background);
+    padding: 1rem 1.25rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+    transition: max-height 0.3s ease, height 0.3s ease;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.text-content ul {
+    margin-top: 0.5rem;
+    list-style: none;
+}
+
+.text-content li {
+    margin: 0.5rem 0;
+}
+
+.chat-input-container {
+    margin-top: auto;
+    background-color: var(--background-light);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+}
+
+.input-wrapper {
+    display: flex;
+    gap: 1rem;
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 0.5rem;
+}
+
+.input-wrapper input {
+    flex-grow: 1;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+.input-wrapper input:focus {
+    outline: none;
+}
+
+.input-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.feature-button,
+.send-button {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    padding: 0.5rem;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.feature-button:hover,
+.send-button:hover {
+    color: var(--primary-color);
+    background-color: rgba(142, 36, 170, 0.1);
+}
+
+.input-footer {
+    margin-top: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    text-align: center;
+}
+
+/* Side Panel Styles */
+.side-panel {
+    width: 320px;
+    background-color: var(--background-light);
+    border-left: 1px solid var(--border-color);
+    display: none;
+}
+
+.side-panel.active {
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.panel-content {
+    padding: 1.5rem;
+    overflow-y: auto;
+}
+
+.close-panel {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 1.25rem;
+}
+
+.metric-card {
+    background-color: var(--card-background);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+}
+
+.metric-card h4 {
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.metric-card .metric-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+}
+
+.metric-card .metric-trend {
+    color: var(--success-color);
+    font-size: 0.875rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .main-content {
+        height: calc(100vh - 80px);
+    }
+
+    .chat-interface {
+        padding: 1rem;
+    }
+
+    .side-panel {
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 1000;
+    }
+}
+
+/* Notifications */
+.notification {
+    position: fixed;
+    top: 86px; /* Position below the white line */
+    right: 20px; /* Right aligned */
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 1000;
+    max-width: 300px;
+    width: auto; /* Let it size to content */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: slide-in-from-right 0.3s ease-out forwards;
+}
+
+@keyframes slide-in-from-right {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Replace the existing slide-in-from-top animation */
+@keyframes slide-in-from-top {
+    from {
+        transform: translateY(-20px) translateX(-50%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) translateX(-50%);
+        opacity: 1;
+    }
+}
+
+/* Add responsive adjustments for notifications */
+@media (max-width: 768px) {
+    .notification {
+        top: 70px; /* Adjust position for mobile */
+        right: 10px; /* Closer to edge on mobile */
+        max-width: 85%; /* Still relatively wide on mobile for visibility */
+    }
+}
+
+.notification.success {
+    background-color: rgba(72, 187, 120, 0.1);
+    border: 1px solid rgba(72, 187, 120, 0.3);
+    color: var(--success-color);
+}
+
+.notification.error {
+    background-color: rgba(229, 62, 62, 0.1);
+    border: 1px solid rgba(229, 62, 62, 0.3);
+    color: var(--danger-color);
+}
+
+.notification.info {
+    background-color: rgba(66, 153, 225, 0.1);
+    border: 1px solid rgba(66, 153, 225, 0.3);
+    color: #3182ce;
+}
+
+.notification.warning {
+    background-color: rgba(237, 137, 54, 0.1);
+    border: 1px solid rgba(237, 137, 54, 0.3);
+    color: var(--warning-color);
+}
+
+/* Medical analysis styling */
+.text-content h3 {
+    color: var(--primary-color);
+    margin: 16px 0 10px 0;
+    font-size: 1.2rem;
+    border-bottom: 1px solid rgba(142, 36, 170, 0.3);
+    padding-bottom: 8px;
+}
+
+.text-content h3:first-child {
+    margin-top: 0;
+}
+
+.text-content {
+    max-height: none;
+    line-height: 1.5;
+}
+
+.message-content .text-content {
+    min-width: 320px;
+}
+
+/* Formatting for medical terms */
+.text-content .highlight {
+    background-color: rgba(142, 36, 170, 0.1);
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-weight: 500;
+}
+
+.text-content .abnormal {
+    color: var(--danger-color);
+    font-weight: bold;
+}
+
+.text-content .normal {
+    color: var(--success-color);
+}
+
+/* Expand the container for medical analysis */
+.message-content.analysis-content {
+    max-width: 95%;
+    width: 95%;
+}
+
+/* Scrollable section for very long analyses */
+.text-content.scrollable {
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 15px;
+    padding-bottom: 15px;
+    border-width: 1px;
+    position: relative;
+}
+
+/* Invisible scrollbar styles */
+.chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
+.chat-messages {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.chat-messages::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+}
+
+/* Invisible scrollbar for scrollable content */
+.text-content.scrollable {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.text-content.scrollable::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+}
+
+/* Treatment recommendations and specialist referral sections */
+.text-content h3:contains("Treatment Recommendations"),
+.text-content h3:contains("Specialist Referral") {
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-top: 20px;
+    padding-top: 5px;
+}
+
+/* Better spacing for long content */
+.text-content p, 
+.text-content ul, 
+.text-content ol {
+    margin-bottom: 12px;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* Make PDF analysis sections more distinct */
+.analysis-section {
+    margin-bottom: 18px;
+    padding-bottom: 15px;
+}
+
+/* Medical analysis specific styling */
+.medical-analysis {
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.medical-analysis h3 {
+    color: var(--primary-color);
+    margin: 16px 0 10px 0;
+    font-size: 1.2rem;
+    border-bottom: 1px solid rgba(142, 36, 170, 0.3);
+    padding-bottom: 8px;
+    white-space: normal;
+}
+
+/* Treatment recommendations and specialist referral sections - target by content */
+.medical-analysis h3:first-of-type + p {
+    font-weight: 500;
+}
+
+/* Medical document sections */
+.medical-analysis p {
+    margin-bottom: 12px;
+}
+
+.medical-analysis ul,
+.medical-analysis ol {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+.medical-analysis li {
+    margin-bottom: 8px;
+}
+
+/* Better visibility for scrollable content */
+.text-content.scrollable {
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 15px;
+    padding-bottom: 15px;
+    border-width: 1px;
+}
+
+/* Add subtle indication that content is scrollable */
+.text-content.scrollable::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 15px;
+    height: 30px;
+    background: linear-gradient(transparent, rgba(30, 33, 36, 0.9));
+    pointer-events: none;
+    opacity: 0.7;
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    z-index: 1;
+}
+
+/* Medical analysis section styling */
+.section-title {
+    color: var(--primary-color);
+    margin: 16px 0 10px 0;
+    font-size: 1.2rem;
+    border-bottom: 1px solid rgba(142, 36, 170, 0.3);
+    padding-bottom: 8px;
+    font-weight: 600;
+}
+
+.section-content {
+    margin-bottom: 16px;
+    line-height: 1.6;
+}
+
+/* Style the first section title differently */
+.section-title:first-child {
+    margin-top: 0;
+}
+
+/* Increase spacing between sections */
+.section-content + .section-title {
+    margin-top: 24px;
+}
+
+/* Make lists easier to read */
+.section-content ul, 
+.section-content ol {
+    margin-left: 25px;
+    margin-bottom: 16px;
+}
+
+.section-content li {
+    margin-bottom: 8px;
+    padding-left: 5px;
+}
+
+/* Better treatment recommendations and specialist referral sections */
+.section-title:contains("Treatment Recommendations") + .section-content,
+.section-title:contains("Specialist Referral") + .section-content {
+    padding: 10px;
+    border-left: 3px solid var(--primary-color);
+    background-color: rgba(142, 36, 170, 0.05);
+}
+
+/* Adaptive sizing for different content lengths */
+.message-content.medium-content {
+    width: 75%;
+    max-width: 75%;
+}
+
+.message-content.large-content {
+    width: 85%;
+    max-width: 85%;
+}
+
+.message-content.xl-content {
+    width: 95%;
+    max-width: 95%;
+}
+
+/* Different scrollable heights based on content size */
+.text-content.large-scrollable {
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.text-content.xl-scrollable {
+    max-height: 450px;
+    overflow-y: auto;
+}
+
+.text-content.xxl-scrollable {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.text-content.adaptive-height {
+    height: auto;
+    max-height: none;
+}
+
+/* Medical report specific formatting */
+.text-content.medical-report {
+    padding: 1.25rem 1.5rem;
+    line-height: 1.6;
+    white-space: normal;
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+/* Ensure table data doesn't overflow */
+.text-content table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.text-content td, .text-content th {
+    word-break: break-word;
+    padding: 6px;
+    overflow-wrap: break-word;
+}
+
+/* Fix for long strings without spaces */
+.text-content * {
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+/* Improved scrollable styling with better indication */
+.text-content.scrollable,
+.text-content.large-scrollable,
+.text-content.xl-scrollable,
+.text-content.xxl-scrollable {
+    padding-right: 15px;
+    padding-bottom: 15px;
+    border-width: 1px;
+    position: relative;
+}
+
+/* Add subtle indication that content is scrollable */
+.text-content.scrollable::after,
+.text-content.large-scrollable::after,
+.text-content.xl-scrollable::after,
+.text-content.xxl-scrollable::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 15px;
+    height: 30px;
+    background: linear-gradient(transparent, rgba(30, 33, 36, 0.9));
+    pointer-events: none;
+    opacity: 0.7;
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    z-index: 1;
+}
+
+/* Better scrollbar styling */
+.text-content.scrollable::-webkit-scrollbar,
+.text-content.large-scrollable::-webkit-scrollbar,
+.text-content.xl-scrollable::-webkit-scrollbar,
+.text-content.xxl-scrollable::-webkit-scrollbar {
+    width: 4px;
+}
+
+.text-content.scrollable::-webkit-scrollbar-track,
+.text-content.large-scrollable::-webkit-scrollbar-track,
+.text-content.xl-scrollable::-webkit-scrollbar-track,
+.text-content.xxl-scrollable::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.text-content.scrollable::-webkit-scrollbar-thumb,
+.text-content.large-scrollable::-webkit-scrollbar-thumb,
+.text-content.xl-scrollable::-webkit-scrollbar-thumb,
+.text-content.xxl-scrollable::-webkit-scrollbar-thumb {
+    background-color: rgba(142, 36, 170, 0.3);
+    border-radius: 4px;
+}
+
+.text-content.scrollable::-webkit-scrollbar-thumb:hover,
+.text-content.large-scrollable::-webkit-scrollbar-thumb:hover,
+.text-content.xl-scrollable::-webkit-scrollbar-thumb:hover,
+.text-content.xxl-scrollable::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(142, 36, 170, 0.5);
+} 
