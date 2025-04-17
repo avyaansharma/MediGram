@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthAI - Find Hospitals</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/map.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfcWsAtCQwcm5FmOMFb-H3MppvsbRI70g&libraries=places,geometry"></script>
+    <!-- Supabase JS library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <i class="fas fa-heartbeat"></i>
+                <h2>HealthAI</h2>
+            </div>
+            <div class="menu-divider"></div>
+            <nav class="nav-menu">
+                <a href="dashboard.html" id="ai-assistant">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Assistant</span>
+                </a>
+                <a href="report-analysis.html" id="report-analysis">
+                    <i class="fas fa-file-medical-alt"></i>
+                    <span>Report Analysis</span>
+                </a>
+                <a href="prescription-reader.html" id="prescription-reader">
+                    <i class="fas fa-prescription-bottle-alt"></i>
+                    <span>Prescription Reader</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="top-bar">
+                <div class="model-selector">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span class="model-name">Hospital Finder</span>
+                    <span class="dashboard-type">(Patient Dashboard)</span>
+                </div>
+                <div class="user-menu">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                    <div class="user-profile">
+                        <img src="https://via.placeholder.com/32" alt="User avatar">
+                        <span id="user-name">Loading...</span>
+                        <i class="fas fa-chevron-down"></i>
+                        <div class="dropdown-menu">
+                            <a href="#profile">
+                                <i class="fas fa-user"></i>
+                                <span>My Profile</span>
+                            </a>
+                            <a href="#settings">
+                                <i class="fas fa-cog"></i>
+                                <span>Settings</span>
+                            </a>
+                            <a href="#help">
+                                <i class="fas fa-question-circle"></i>
+                                <span>Help Center</span>
+                            </a>
+                            <a href="#" id="logout-button">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Sign Out</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map Interface -->
+            <div class="map-interface">
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" id="location-input" placeholder="Enter your location...">
+                        <button id="search-button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <div class="filter-options">
+                        <select id="radius">
+                            <option value="5">Within 5km</option>
+                            <option value="10">Within 10km</option>
+                            <option value="15">Within 15km</option>
+                            <option value="20">Within 20km</option>
+                        </select>
+                        <select id="hospital-type">
+                            <option value="all">All Hospitals</option>
+                            <option value="emergency">Emergency Care</option>
+                            <option value="specialty">Specialty Hospitals</option>
+                        </select>
+                        <div class="route-options">
+                            <button id="find-nearest" class="action-button">
+                                <i class="fas fa-ambulance"></i> Find Nearest Hospital
+                            </button>
+                        </div>
+                        <div class="direction-controls">
+                            <label>
+                                <input type="checkbox" id="show-directions" />
+                                Show directions to selected hospital
+                            </label>
+                            <select id="travel-mode">
+                                <option value="DRIVING">By Car</option>
+                                <option value="WALKING">Walking</option>
+                                <option value="TRANSIT">Public Transit</option>
+                                <option value="BICYCLING">Bicycling</option>
+                            </select>
+                            <label class="optimize-route-label">
+                                <input type="checkbox" id="optimize-route" checked />
+                                Optimize for fastest route
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div id="map"></div>
+                <div class="loading-spinner"></div>
+                <div class="route-info">
+                    <div class="distance">Calculating route...</div>
+                    <div class="duration"></div>
+                    <div class="mode"></div>
+                </div>
+                <button class="toggle-directions-btn" id="toggle-directions">
+                    <i class="fas fa-directions"></i>
+                </button>
+                <div class="hospital-list">
+                    <h3>Nearby Hospitals</h3>
+                    <div id="hospital-results"></div>
+                </div>
+                <div class="directions-panel">
+                    <h3>
+                        Directions
+                        <button id="close-directions"><i class="fas fa-times"></i></button>
+                    </h3>
+                    <div id="directions-content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load auth-related scripts -->
+    <script src="js/supabase.js"></script>
+    <script src="js/util.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/map.js"></script>
+</body>
+</html> 
